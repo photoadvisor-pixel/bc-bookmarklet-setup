@@ -3,7 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>ブックマークレット設定ページ</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>ブックマークレット設定ページ v10</title>
     <style>
         body {
             font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif;
@@ -37,6 +40,14 @@
             background: #0052a3;
         }
 
+        .debug-link {
+            background: #e67e22 !important;
+        }
+
+        .debug-link:hover {
+            background: #d35400 !important;
+        }
+
         .step {
             background: #f5f5f5;
             padding: 16px;
@@ -66,18 +77,32 @@
             margin: 16px 0;
         }
 
-        .version {
-            color: #999;
-            font-size: 12px;
-            margin-top: 40px;
-            border-top: 1px solid #eee;
-            padding-top: 8px;
+        .success {
+            background: #d4edda;
+            padding: 14px;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+            margin: 16px 0;
+        }
+
+        .version-box {
+            background: #e8f4fd;
+            border: 2px solid #0066cc;
+            padding: 10px 16px;
+            border-radius: 8px;
+            margin: 16px 0;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #0066cc;
         }
     </style>
 </head>
 
 <body>
-    <h1>📌 BCセンター → kintone データ送信ブックマークレット 設定方法</h1>
+    <h1>📌 BCセンター → kintone データ送信ブックマークレット</h1>
+
+    <div class="version-box">✅ 現在のバージョン：v10 (2026-03-06 更新)</div>
 
     <p>下のボタンを<strong>ブックマークバーにドラッグ＆ドロップ</strong>するだけで設定完了です。</p>
 
@@ -85,8 +110,26 @@
         style="text-align:center; margin: 30px 0; padding: 20px; border: 2px dashed #0066cc; border-radius: 12px; background: #f0f7ff;">
         <p style="margin:0 0 10px; font-size:14px; color:#666;">↓ このボタンをブックマークバーにドラッグしてください ↓</p>
         <a class="bookmarklet-link"
-            href="javascript:void(function(){var f=document.form1;if(!f){alert('会員データ編集画面で実行してください');return}var g=function(n){var e=f.elements[n];return e?(e.value||'').trim():''};var gs=function(n){var e=f.elements[n];if(!e)return'';var opt=e.options?e.options[e.selectedIndex]:null;return opt?opt.text.trim():''};var gr=function(n){var e=f.elements[n];if(!e)return'';if(e.length){for(var i=0;i<e.length;i++){if(e[i].checked)return e[i].value}}return e.checked?e.value:''};var gc=function(n){var es=f.elements[n];if(!es)return'';var a=[];if(es.length){for(var i=0;i<es.length;i++){if(es[i].checked%26%26es[i].value)a.push(es[i].value)}}return a.length?a.join('%E3%80%81'):''};var d={};d.code_no=g('code_no');d.family_name=g('family_name');d.first_name=g('first_name');d.family_kana=g('family_kana');d.first_kana=g('first_kana');d.email=g('email');d.phone=g('phone');d.contact_no=g('contact_no');d.zip=g('zip');d.sex=gr('sex');d.gakunen=gs('gakunen');d.traffic_cd=gs('traffic_cd');d.pay_code_no=g('pay_code_no');var rd=g('require_date');var rt=g('require_time');if(rd){d.require_date=rd;if(rt)d.require_time=rt}d['remarks[41]']=gs('remarks[41]');d['remarks[37]']=gs('remarks[37]');d['remarks[46]']=gr('remarks[46]');d['remarks[33]']=gr('remarks[33]');d['remarks[34]']=gs('remarks[34]');d['remarks[38]']=gc('remarks[38][]');d['remarks[39]']=gc('remarks[39][]');d['remarks[35]']=gc('remarks[35][]');d.motive_cd=gs('motive_cd');d['remarks[278]']=gc('remarks[278][]');d.medium_cd=gs('medium_cd');d['remarks[272]']=gc('remarks[272][]');var k=Object.keys(d);for(var i=0;i<k.length;i++){if(!d[k[i]])delete d[k[i]]}var j=JSON.stringify(d);var u='https://wcb26.cybozu.com/k/218/edit?bc_data='+encodeURIComponent(j);console.log('BC Data:',d);if(confirm('データをkintoneへ送信しますか？')){window.open(u,'_blank')}}());">📤
+            href="javascript:void(function(){var f=document.form1;if(!f){alert('会員データ編集画面で実行してください');return}var g=function(n){var e=f.elements[n];return e?(e.value||'').trim():''};var gs=function(n){var e=f.elements[n];if(!e)return'';var opt=e.options?e.options[e.selectedIndex]:null;return opt?opt.text.trim():''};var gr=function(n){var e=f.elements[n];if(!e)return'';if(e.length){for(var i=0;i<e.length;i++){if(e[i].checked)return e[i].value}}return e.checked?e.value:''};var gc=function(n){var es=f.elements[n];if(!es)return'';var a=[];if(es.length){for(var i=0;i<es.length;i++){if(es[i].checked%26%26es[i].value)a.push(es[i].value)}}return a.length?a.join('%E3%80%81'):''};var d={};d.code_no=g('code_no');d.family_name=g('family_name');d.first_name=g('first_name');d.family_kana=g('family_kana');d.first_kana=g('first_kana');d.email=g('email');d.phone=g('phone');d.contact_no=g('contact_no');d.zip=g('zip');d.sex=gr('sex');d.gakunen=gs('gakunen');d.traffic_cd=gs('traffic_cd');d.pay_code_no=g('pay_code_no');var rd=g('require_date');var rt=g('require_time');if(rd){d.require_date=rd;if(rt)d.require_time=rt}d['remarks[41]']=gs('remarks[41]');d['remarks[37]']=gs('remarks[37]');d['remarks[46]']=gr('remarks[46]');d['remarks[33]']=gr('remarks[33]');d['remarks[34]']=gs('remarks[34]');d['remarks[38]']=gc('remarks[38][]');d['remarks[39]']=gc('remarks[39][]');d['remarks[35]']=gc('remarks[35][]');d.motive_cd=gs('motive_cd');d['remarks[278]']=gc('remarks[278][]');d.medium_cd=gs('medium_cd');d['remarks[272]']=gc('remarks[272][]');var k=Object.keys(d);for(var i=0;i<k.length;i++){if(!d[k[i]])delete d[k[i]]}var j=JSON.stringify(d);var u='https://wcb26.cybozu.com/k/218/edit?bc_data='+encodeURIComponent(j);console.log('BC Data:',d);if(confirm('データをkintoneへ送信しますか？\n\n取得データ：\n'+JSON.stringify(d,null,2))){window.open(u,'_blank')}}());">📤
             BCデータ→kintone送信</a>
+    </div>
+
+    <div class="success">
+        ✅ <strong>確認ポイント</strong>：ブックマークを実行すると、送信前に「取得したデータの一覧」がポップアップで表示されます。
+        データが正しく取れているか確認してから「OK」を押してください。
+    </div>
+
+    <hr style="margin: 30px 0;">
+
+    <h2>🔍 うまくいかない場合の診断ツール</h2>
+    <p>データ送信がうまくいかない場合、こちらのボタンで<strong>取得できたデータの確認だけ</strong>ができます（kintoneへは送信しません）。</p>
+
+    <div
+        style="text-align:center; margin: 20px 0; padding: 20px; border: 2px dashed #e67e22; border-radius: 12px; background: #fef9f0;">
+        <p style="margin:0 0 10px; font-size:14px; color:#666;">↓ 診断用（データ送信はしません）↓</p>
+        <a class="bookmarklet-link debug-link"
+            href="javascript:void(function(){var f=document.form1;if(!f){alert('会員データ編集画面で実行してください。form1が見つかりません。');return}var g=function(n){var e=f.elements[n];return e?(e.value||'').trim():''};var gs=function(n){var e=f.elements[n];if(!e)return'[要素なし]';var opt=e.options?e.options[e.selectedIndex]:null;return opt?opt.text.trim():'[未選択]'};var gr=function(n){var e=f.elements[n];if(!e)return'[要素なし]';if(e.length){for(var i=0;i<e.length;i++){if(e[i].checked)return e[i].value}}return'[未選択]'};var gc=function(n){var es=f.elements[n];if(!es)return'[要素なし]';var a=[];if(es.length){for(var i=0;i<es.length;i++){if(es[i].checked%26%26es[i].value)a.push(es[i].value)}}return a.length?a.join(', '):'[未チェック]'};var r='=== BCセンター診断結果 (v10) ===\n\n';r+='【基本情報】\n';r+='code_no: '+g('code_no')+'\n';r+='family_name: '+g('family_name')+'\n';r+='first_name: '+g('first_name')+'\n';r+='email: '+g('email')+'\n';r+='zip: '+g('zip')+'\n';r+='sex: '+gr('sex')+'\n';r+='traffic_cd: '+gs('traffic_cd')+'\n';r+='pay_code_no: '+g('pay_code_no')+'\n\n';r+='【備考系フィールド】\n';r+='remarks[41] 所要時間: '+gs('remarks[41]')+'\n';r+='remarks[37] テニス経験: '+gs('remarks[37]')+'\n';r+='remarks[46] チラシ閲覧: '+gr('remarks[46]')+'\n';r+='remarks[33] HP閲覧: '+gr('remarks[33]')+'\n';r+='remarks[34] 検索ワード: '+gs('remarks[34]')+'\n';r+='remarks[38] 曜日: '+gc('remarks[38][]')+'\n';r+='remarks[39] 時間帯: '+gc('remarks[39][]')+'\n';r+='remarks[35] 要望: '+gc('remarks[35][]')+'\n';r+='remarks[272] 媒体: '+gc('remarks[272][]')+'\n';r+='remarks[278] 動機: '+gc('remarks[278][]')+'\n\n';r+='【フォーム要素一覧（先頭30個）】\n';var els=f.elements;for(var i=0;i<Math.min(els.length,30);i++){r+=els[i].name+' = '+els[i].value+'\n'}alert(r)}());">🔍
+            診断：データ確認のみ</a>
     </div>
 
     <h2>📋 設定手順</h2>
@@ -94,35 +137,31 @@
     <div class="step">
         <span class="step-num">1</span>
         <strong>ブックマークバーを表示する</strong><br>
-        Chrome の場合：<code>Ctrl + Shift + B</code>（Mac: <code>⌘ + Shift + B</code>）で表示できます。<br>
-        画面上部にブックマークバーが表示されていればOKです。
+        Chrome の場合：<code>Ctrl + Shift + B</code>（Mac: <code>⌘ + Shift + B</code>）で表示できます。
     </div>
 
     <div class="step">
         <span class="step-num">2</span>
-        <strong>上の青いボタンをドラッグ＆ドロップ</strong><br>
-        上の「📤 BCデータ→kintone送信」ボタンを、マウスで掴んで（左クリック押したまま）ブックマークバーの上まで持っていき、離してください。<br>
-        ブックマークバーに「📤 BCデータ→kintone送信」が追加されれば成功です。
+        <strong>古いブックマークレットを削除する</strong><br>
+        ブックマークバーに以前の「BCデータ→kintone送信」がある場合は、<strong>右クリック → 削除</strong>してください。
     </div>
 
     <div class="step">
         <span class="step-num">3</span>
+        <strong>上の青いボタンをドラッグ＆ドロップ</strong><br>
+        「📤 BCデータ→kintone送信」ボタンを、マウスで掴んで（左クリック押したまま）ブックマークバーまで持っていき、離してください。
+    </div>
+
+    <div class="step">
+        <span class="step-num">4</span>
         <strong>使い方</strong><br>
-        BCセンターの会員データ編集画面を開いた状態で、ブックマークバーの「📤 BCデータ→kintone送信」をクリックすると、データがkintoneに送信されます。
+        BCセンターの会員データ編集画面を開いた状態で、ブックマークバーの「📤 BCデータ→kintone送信」をクリック。<br>
+        → 取得データがポップアップで表示されます。内容を確認して「OK」を押すと、kintoneへ送信されます。
     </div>
 
     <div class="warning">
-        ⚠️ <strong>注意</strong>：このページ上では青いボタンをクリックしても動作しません（エラーが出ます）。必ずBCセンターの画面で使用してください。
+        ⚠️ <strong>注意</strong>：このページ上では各ボタンをクリックしても動作しません。必ずBCセンターの画面で使用してください。
     </div>
-
-    <h2>❓ うまくいかない場合</h2>
-    <ul>
-        <li><strong>ブックマークバーが表示されない場合</strong>：Chromeメニュー → ブックマーク → ブックマークバーを表示 を選択</li>
-        <li><strong>ドラッグできない場合</strong>：ボタンの上にマウスカーソルを置いたら、クリックしたまま（押したまま離さずに）ブックマークバーまで移動してから指を離してください</li>
-        <li><strong>古いブックマークレットがある場合</strong>：古いものを右クリック → 削除 してから、再度ドラッグ＆ドロップしてください</li>
-    </ul>
-
-    <p class="version">v10 (2026-03-06) - データ形式をJSON形式に修正、kintone自動入力スクリプトと連携</p>
 </body>
 
 </html>
