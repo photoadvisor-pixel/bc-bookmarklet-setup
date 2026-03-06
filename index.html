@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ブックマークレット設定ページ</title>
+    <style>
+        body {
+            font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif;
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 22px;
+            border-bottom: 2px solid #0066cc;
+            padding-bottom: 8px;
+        }
+
+        .bookmarklet-link {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 14px 28px;
+            background: #0066cc;
+            color: #fff !important;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: move;
+        }
+
+        .bookmarklet-link:hover {
+            background: #0052a3;
+        }
+
+        .step {
+            background: #f5f5f5;
+            padding: 16px;
+            margin: 12px 0;
+            border-radius: 8px;
+            border-left: 4px solid #0066cc;
+        }
+
+        .step-num {
+            display: inline-block;
+            background: #0066cc;
+            color: #fff;
+            width: 28px;
+            height: 28px;
+            text-align: center;
+            line-height: 28px;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .warning {
+            background: #fff3cd;
+            padding: 14px;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin: 16px 0;
+        }
+
+        img.screenshot {
+            max-width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 8px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>📌 BCセンター → kintone データ送信ブックマークレット 設定方法</h1>
+
+    <p>下のボタンを<strong>ブックマークバーにドラッグ＆ドロップ</strong>するだけで設定完了です。</p>
+
+    <div
+        style="text-align:center; margin: 30px 0; padding: 20px; border: 2px dashed #0066cc; border-radius: 12px; background: #f0f7ff;">
+        <p style="margin:0 0 10px; font-size:14px; color:#666;">↓ このボタンをブックマークバーにドラッグしてください ↓</p>
+        <a class="bookmarklet-link"
+            href="javascript:(function(){const f=document.form1;if(!f){alert('会員データ編集画面で実行してください');return}const g=n=>{const e=f.elements[n];return e?(e.value||'').trim():''};const gs=n=>{const e=f.elements[n];if(!e)return'';const opt=e.options?e.options[e.selectedIndex]:null;return opt?opt.text.trim():''};const gr=n=>{const e=f.elements[n];if(!e)return'';if(e.length){for(let i=0;i<e.length;i++){if(e[i].checked)return e[i].value}}return e.checked?e.value:''};const gc=(n,m)=>{const es=f.elements[n];if(!es)return'';const a=[];if(es.length){for(let i=0;i<es.length;i++){if(es[i].checked&&es[i].value)a.push(es[i].value)}}return a.length?a.join('、'):''};const cd='005'+g('code_no');const fn=g('family_name'),fi=g('first_name'),fk=g('family_kana'),fik=g('first_kana');const sex=gr('sex')==='0'?'男':'女';const trf=gs('traffic_cd');const tm=gs('remarks[91]');const med=gc('remarks[276][]');const mot=gc('remarks[277][]');const wd=gc('remarks[96][]');const wt=gc('remarks[97][]');const req=gc('remarks[98][]');const fl=gr('remarks[93]');const hp=gr('remarks[94]');const sw=gs('remarks[95]');const p=new URLSearchParams();p.set('cd',cd);p.set('fn',fn);p.set('fi',fi);p.set('fk',fk);p.set('fik',fik);p.set('em',g('email'));p.set('zip',g('zip'));p.set('sex',sex);p.set('trf',trf);p.set('tm',tm);p.set('med',med);p.set('mot',mot);p.set('wd',wd);p.set('wt',wt);p.set('req',req);p.set('fl',fl);p.set('hp',hp);p.set('sw',sw);const url='https://wcb26.cybozu.com/k/218/edit#bc='+encodeURIComponent(p.toString());window.open(url,'_blank')})();void(0);">📤
+            BCデータ→kintone送信</a>
+    </div>
+
+    <h2>📋 設定手順</h2>
+
+    <div class="step">
+        <span class="step-num">1</span>
+        <strong>ブックマークバーを表示する</strong><br>
+        Chrome の場合：<code>Ctrl + Shift + B</code>（Mac: <code>⌘ + Shift + B</code>）で表示できます。<br>
+        画面上部にブックマークバーが表示されていればOKです。
+    </div>
+
+    <div class="step">
+        <span class="step-num">2</span>
+        <strong>上の青いボタンをドラッグ＆ドロップ</strong><br>
+        上の「📤 BCデータ→kintone送信」ボタンを、マウスで掴んで（左クリック押したまま）ブックマークバーの上まで持っていき、離してください。<br>
+        ブックマークバーに「📤 BCデータ→kintone送信」が追加されれば成功です。
+    </div>
+
+    <div class="step">
+        <span class="step-num">3</span>
+        <strong>使い方</strong><br>
+        BCセンターの会員データ編集画面を開いた状態で、ブックマークバーの「📤 BCデータ→kintone送信」をクリックすると、データがkintoneに送信されます。
+    </div>
+
+    <div class="warning">
+        ⚠️ <strong>注意</strong>：このページ上では青いボタンをクリックしても動作しません（エラーが出ます）。必ずBCセンターの画面で使用してください。
+    </div>
+
+    <h2>❓ うまくいかない場合</h2>
+    <ul>
+        <li><strong>ブックマークバーが表示されない場合</strong>：Chromeメニュー → ブックマーク → ブックマークバーを表示 を選択</li>
+        <li><strong>ドラッグできない場合</strong>：ボタンの上にマウスカーソルを置いたら、クリックしたまま（押したまま離さずに）ブックマークバーまで移動してから指を離してください</li>
+        <li><strong>古いブックマークレットがある場合</strong>：古いものを右クリック → 削除 してから、再度ドラッグ＆ドロップしてください</li>
+    </ul>
+</body>
+
+</html>
