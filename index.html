@@ -121,15 +121,15 @@
 
     <hr style="margin: 30px 0;">
 
-    <h2>🔍 うまくいかない場合の診断ツール</h2>
-    <p>データ送信がうまくいかない場合、こちらのボタンで<strong>取得できたデータの確認だけ</strong>ができます（kintoneへは送信しません）。</p>
+    <h2>🔍 うまくいかない場合の調査ツール</h2>
+    <p>データ送信がうまくいかない場合、こちらのボタンで<strong>画面のHTMLソースをテキストファイルとしてダウンロード</strong>できます。<br>ダウンロードされたファイルを担当者（衣笠）へお送りください。</p>
 
     <div
         style="text-align:center; margin: 20px 0; padding: 20px; border: 2px dashed #e67e22; border-radius: 12px; background: #fef9f0;">
-        <p style="margin:0 0 10px; font-size:14px; color:#666;">↓ 診断用（データ送信はしません）↓</p>
+        <p style="margin:0 0 10px; font-size:14px; color:#666;">↓ 調査用（HTMLソースをダウンロードします）↓</p>
         <a class="bookmarklet-link debug-link"
-            href="javascript:void(function(){var f=document.form1;if(!f){alert('会員データ編集画面で実行してください。form1が見つかりません。');return}var g=function(n){var e=f.elements[n];return e?(e.value||'').trim():''};var gs=function(n){var e=f.elements[n];if(!e)return'[要素なし]';var opt=e.options?e.options[e.selectedIndex]:null;return opt?opt.text.trim():'[未選択]'};var gr=function(n){var e=f.elements[n];if(!e)return'[要素なし]';if(e.length){for(var i=0;i<e.length;i++){if(e[i].checked)return e[i].value}}return'[未選択]'};var gc=function(n){var es=f.elements[n];if(!es)return'[要素なし]';var a=[];if(es.length){for(var i=0;i<es.length;i++){if(es[i].checked%26%26es[i].value)a.push(es[i].value)}}return a.length?a.join(', '):'[未チェック]'};var r='=== BCセンター診断結果 (v10) ===\n\n';r+='【基本情報】\n';r+='code_no: '+g('code_no')+'\n';r+='family_name: '+g('family_name')+'\n';r+='first_name: '+g('first_name')+'\n';r+='email: '+g('email')+'\n';r+='zip: '+g('zip')+'\n';r+='sex: '+gr('sex')+'\n';r+='traffic_cd: '+gs('traffic_cd')+'\n';r+='pay_code_no: '+g('pay_code_no')+'\n\n';r+='【備考系フィールド】\n';r+='remarks[41] 所要時間: '+gs('remarks[41]')+'\n';r+='remarks[37] テニス経験: '+gs('remarks[37]')+'\n';r+='remarks[46] チラシ閲覧: '+gr('remarks[46]')+'\n';r+='remarks[33] HP閲覧: '+gr('remarks[33]')+'\n';r+='remarks[34] 検索ワード: '+gs('remarks[34]')+'\n';r+='remarks[38] 曜日: '+gc('remarks[38][]')+'\n';r+='remarks[39] 時間帯: '+gc('remarks[39][]')+'\n';r+='remarks[35] 要望: '+gc('remarks[35][]')+'\n';r+='remarks[272] 媒体: '+gc('remarks[272][]')+'\n';r+='remarks[278] 動機: '+gc('remarks[278][]')+'\n\n';r+='【フォーム要素一覧（先頭30個）】\n';var els=f.elements;for(var i=0;i<Math.min(els.length,30);i++){r+=els[i].name+' = '+els[i].value+'\n'}alert(r)}());">🔍
-            診断：データ確認のみ</a>
+            href="javascript:void(function(){var h=document.documentElement.outerHTML;var b=new Blob([h],{type:'text/plain'});var a=document.createElement('a');a.href=URL.createObjectURL(b);var d=new Date();var fn='bc_html_'+d.getFullYear()+(''+(d.getMonth()+1)).padStart(2,'0')+(''+d.getDate()).padStart(2,'0')+'_'+(''+d.getHours()).padStart(2,'0')+(''+d.getMinutes()).padStart(2,'0')+'.txt';a.download=fn;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(a.href);alert('HTMLソースをダウンロードしました。\nファイル名: '+fn+'\n\nこのファイルを担当者へお送りください。')}());">📥
+            HTMLソースをダウンロード</a>
     </div>
 
     <h2>📋 設定手順</h2>
