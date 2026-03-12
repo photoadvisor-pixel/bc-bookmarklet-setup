@@ -15,7 +15,7 @@
         .btn-gray { background: #95a5a6; }
         .btn-red { background: #e74c3c; }
         .dl-box { background: #fdf2f1; border-color: #e74c3c; }
-        .old-box { background: #f5f5f5; border-color: #95a5a6; }
+
         .steps { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; }
         .step { display: flex; align-items: flex-start; margin-bottom: 15px; }
         .snum { background: #3498db; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; flex-shrink: 0; margin-right: 15px; }
@@ -29,8 +29,6 @@
     <!-- 本番用 v13.2 -->
     <div class="box" id="v13box"></div>
 
-    <!-- 旧バージョン v12 -->
-    <div class="box old-box" id="v12box"></div>
 
     <!-- 調査用 -->
     <div class="box dl-box" id="dlbox"></div>
@@ -95,44 +93,7 @@
         "})()"
     ].join("");
 
-    // ============================
-    // v12 ブックマークレット（短縮キー + ハッシュ方式）
-    // ============================
-    var v12code = [
-        "javascript:(function(){",
-        "var f=document.form1;",
-        "if(!f){alert('会員データ編集画面で実行してください');return;}",
-        "var g=function(n){var e=f.elements[n];return e?(e.value||'').trim():'';};",
-        "var gs=function(n){var e=f.elements[n];if(!e)return'';var o=e.options?e.options[e.selectedIndex]:null;return o&&o.value!==''?o.text.trim():'';};",
-        "var gr=function(n){var e=f.elements[n];if(!e)return'';if(e.length){for(var i=0;i<e.length;i++){if(e[i].checked)return e[i].value;}}return e.checked?e.value:'';};",
-        "var tds=document.querySelectorAll('td');",
-        "var clean=function(s){return(s||'').replace(/[\\n\\r\\s\\t\\u3000]+/g,'').trim();};",
-        "var findAllByLabel=function(label){var cl=clean(label);var results=[];for(var i=0;i<tds.length;i++){var txt=clean(tds[i].textContent||tds[i].innerText||'');if(txt.indexOf(cl)!==-1&&txt.length<=cl.length+6){var next=tds[i].nextElementSibling;if(next&&next.tagName==='TD')results.push(next);}}return results;};",
-        "var getSelect=function(label){var c=findAllByLabel(label);for(var i=0;i<c.length;i++){var s=c[i].querySelector('select');if(s&&s.selectedIndex>0)return s.options[s.selectedIndex].text.trim();}return'';};",
-        "var getRadio=function(label){var c=findAllByLabel(label);for(var i=0;i<c.length;i++){var r=c[i].querySelector('input[type=\"radio\"]:checked');if(r)return r.value.trim();}return'';};",
-        "var getCheckboxes=function(label){var c=findAllByLabel(label);for(var i=0;i<c.length;i++){var cbs=c[i].querySelectorAll('input[type=\"checkbox\"]');if(cbs.length===0)continue;var checked=c[i].querySelectorAll('input[type=\"checkbox\"]:checked');var a=[];for(var j=0;j<checked.length;j++){if(checked[j].value)a.push(checked[j].value);}return a.length?a.join('、'):'';}return'';};",
-        "var d={};",
-        "var cd='005'+g('code_no');",
-        "d.cd=cd;d.fn=g('family_name');d.fi=g('first_name');",
-        "d.fk=g('family_kana');d.fik=g('first_kana');",
-        "d.em=g('email');d.zip=g('zip');",
-        "d.sex=gr('sex')==='0'?'男':'女';",
-        "d.trf=gs('traffic_cd');",
-        "d.tm=getSelect('所要時間');",
-        "d.fl=getRadio('チラシ');",
-        "d.hp=getRadio('ホームページ');",
-        "d.sw=getSelect('検索ワード');",
-        "d.wd=getCheckboxes('通いやすい曜日');",
-        "d.wt=getCheckboxes('通いやすい時間帯');",
-        "d.req=getCheckboxes('レッスンに対する要望');",
-        "d.med=getCheckboxes('媒体');",
-        "d.mot=getCheckboxes('動機');",
-        "var p=new URLSearchParams();",
-        "var k=Object.keys(d);for(var i=0;i<k.length;i++){if(d[k[i]])p.set(k[i],d[k[i]]);}",
-        "var u='https://wcb26.cybozu.com/k/218/edit'+'#bc='+encodeURIComponent(p.toString());",
-        "window.open(u,'_blank');",
-        "})()"
-    ].join("");
+
 
     // ============================
     // HTMLダウンロード
@@ -169,9 +130,7 @@
     v13box.innerHTML = '<h3>本番用 v13.2（Kintoneへ転送）</h3><p>BCセンターの会員データ画面でクリックすると、Kintoneにデータを送ります。</p>';
     v13box.appendChild(makeLink(v13code, '📩 Kintoneに送る (v13.2)', 'btn-blue'));
 
-    var v12box = document.getElementById('v12box');
-    v12box.innerHTML = '<h3>旧バージョン v12（比較テスト用）</h3><p>以前のv12ブックマークレット。一部データが転記されない不具合あり。</p>';
-    v12box.appendChild(makeLink(v12code, '📤 BCデータ→kintone送信 (v12)', 'btn-gray'));
+
 
     var dlbox = document.getElementById('dlbox');
     dlbox.innerHTML = '<h3>⚠️ 調査専用（HTMLダウンロード）⚠️</h3><p>原因調査のため画面HTMLをダウンロードします。<br>※Kintoneへの送信は行いません。</p>';
