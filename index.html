@@ -69,7 +69,7 @@
         "var getCheckboxes=function(label){var c=findAllByLabel(label);for(var i=0;i<c.length;i++){var cbs=c[i].querySelectorAll('input[type=\"checkbox\"]');if(cbs.length===0)continue;var checked=c[i].querySelectorAll('input[type=\"checkbox\"]:checked');var a=[];for(var j=0;j<checked.length;j++){if(checked[j].value)a.push(checked[j].value);}return a.length?a.join('、'):'';}return'';};",
         "var getText=function(label){var c=findAllByLabel(label);for(var i=0;i<c.length;i++){var inp=c[i].querySelector('input[type=\"text\"],textarea');if(inp&&inp.value.trim())return inp.value.trim();}return'';};",
         "var p=new URLSearchParams();",
-        "var cd='005'+g('code_no');if(cd!=='005')p.set('cd',cd);",
+        "var cd=g('stab_no')+g('code_no');if(cd)p.set('cd',cd);",
         "var fn=g('family_name');if(fn)p.set('fn',fn);",
         "var fi=g('first_name');if(fi)p.set('fi',fi);",
         "var fk=g('family_kana');if(fk)p.set('fk',fk);",
