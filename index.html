@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ITC Kintone ブックマークレット設定 v13.1 (HTMLダウンロード追加)</title>
+    <title>ITC Kintone ブックマークレット設定 v13.1</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -49,23 +49,15 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 8px rgba(0,0,0,0.15);
         }
-        .bookmarklet-link:active {
-            cursor: grabbing;
-        }
-        .download-link {
-            background-color: #e74c3c;
-        }
-        .download-link:hover {
-            background-color: #c0392b;
-        }
-        .download-box {
-            background-color: #fdf2f1;
-            border-color: #e74c3c;
-        }
-        .download-box:hover {
-            border-color: #c0392b;
-            background-color: #fce4e2;
-        }
+        .bookmarklet-link:active { cursor: grabbing; }
+        .download-link { background-color: #e74c3c; }
+        .download-link:hover { background-color: #c0392b; }
+        .old-link { background-color: #95a5a6; }
+        .old-link:hover { background-color: #7f8c8d; }
+        .download-box { background-color: #fdf2f1; border-color: #e74c3c; }
+        .download-box:hover { border-color: #c0392b; background-color: #fce4e2; }
+        .old-box { background-color: #f5f5f5; border-color: #95a5a6; }
+        .old-box:hover { border-color: #7f8c8d; background-color: #eee; }
         .instructions {
             background-color: #fff;
             border: 1px solid #e0e0e0;
@@ -81,15 +73,10 @@
         .step-number {
             background-color: #3498db;
             color: white;
-            width: 24px;
-            height: 24px;
+            width: 24px; height: 24px;
             border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            flex-shrink: 0;
-            margin-right: 15px;
+            display: flex; justify-content: center; align-items: center;
+            font-weight: bold; flex-shrink: 0; margin-right: 15px;
         }
         .changelog {
             margin-top: 30px;
@@ -105,12 +92,21 @@
 
     <p>以下のボタンをブックマークバーにドラッグ＆ドロップして登録してください。</p>
 
-    <!-- 本番用 -->
+    <!-- 本番用 v13.1（ハッシュ方式） -->
     <div class="bookmarklet-box">
-        <h3>本番用（Kintoneへ転送）</h3>
+        <h3>本番用 v13.1（Kintoneへ転送）</h3>
         <p>BCセンターの会員データ画面でクリックすると、Kintoneにデータを送ります。</p>
-        <a class="bookmarklet-link" href="javascript:(function(){var%20f=document.form1;if(!f){alert('%E4%BC%9A%E5%93%A1%E3%83%87%E3%83%BC%E3%82%BF%E7%B7%A8%E9%9B%86%E7%94%BB%E9%9D%A2%E3%81%A7%E5%AE%9F%E8%A1%8C%E3%81%97%E3%81%A6%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84');return;}var%20g=function(n){var%20e=f.elements[n];return%20e?(e.value||'').trim():'';};var%20gs=function(n){var%20e=f.elements[n];if(!e)return'';var%20o=e.options?e.options[e.selectedIndex]:null;return%20o%26%26o.value!==''?o.text.trim():'';};var%20gr=function(n){var%20e=f.elements[n];if(!e)return'';if(e.length){for(var%20i=0;i%3Ce.length;i++){if(e[i].checked)return%20e[i].value;}}return%20e.checked?e.value:'';};var%20tds=document.querySelectorAll('td');var%20clean=function(s){return(s||'').replace(/[\n\r\s\t%E3%80%80]+/g,'').trim();};var%20findAllByLabel=function(label){var%20cl=clean(label);var%20results=[];for(var%20i=0;i%3Ctds.length;i++){var%20txt=clean(tds[i].textContent||tds[i].innerText||'');if(txt.indexOf(cl)!==-1%26%26txt.length%3C=cl.length+10){var%20next=tds[i].nextElementSibling;if(next%26%26next.tagName==='TD')results.push(next);}}return%20results;};var%20getSelect=function(label){var%20c=findAllByLabel(label);for(var%20i=0;i%3Cc.length;i++){var%20s=c[i].querySelector('select');if(s%26%26s.selectedIndex%3E0)return%20s.options[s.selectedIndex].text.trim();}return'';};var%20getRadio=function(label){var%20c=findAllByLabel(label);for(var%20i=0;i%3Cc.length;i++){var%20r=c[i].querySelector('input[type=%22radio%22]:checked');if(r)return%20r.value.trim();}return'';};var%20getCheckboxes=function(label){var%20c=findAllByLabel(label);for(var%20i=0;i%3Cc.length;i++){var%20cbs=c[i].querySelectorAll('input[type=%22checkbox%22]');if(cbs.length===0)continue;var%20checked=c[i].querySelectorAll('input[type=%22checkbox%22]:checked');var%20a=[];for(var%20j=0;j%3Cchecked.length;j++){if(checked[j].value)a.push(checked[j].value);}return%20a.length?a.join('%E3%80%81'):'';}return'';};var%20getText=function(label){var%20c=findAllByLabel(label);for(var%20i=0;i%3Cc.length;i++){var%20inp=c[i].querySelector('input[type=%22text%22],textarea');if(inp%26%26inp.value.trim())return%20inp.value.trim();}return'';};var%20d={};d.code_no=g('code_no');d.pay_code_no=g('pay_code_no');d.family_name=g('family_name');d.first_name=g('first_name');d.family_kana=g('family_kana');d.first_kana=g('first_kana');d.email=g('email');d.zip=g('zip');d.sex=gr('sex');d.traffic_cd=gs('traffic_cd');d.motive_cd=gs('motive_cd');d.medium_cd=gs('medium_cd');d['%E6%89%80%E8%A6%81%E6%99%82%E9%96%93']=getSelect('%E6%89%80%E8%A6%81%E6%99%82%E9%96%93');d['%E3%83%86%E3%83%8B%E3%82%B9%E7%B5%8C%E9%A8%93']=getSelect('%E3%83%86%E3%83%8B%E3%82%B9%E7%B5%8C%E9%A8%93');d['%E3%83%81%E3%83%A9%E3%82%B7%E9%96%B2%E8%A6%A7']=getRadio('%E3%83%81%E3%83%A9%E3%82%B7');d['HP%E9%96%B2%E8%A6%A7']=getRadio('%E3%83%9B%E3%83%BC%E3%83%A0%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E8%A6%8B%E3%81%BE%E3%81%97%E3%81%9F%E3%81%8B');d['%E6%A4%9C%E7%B4%A2%E3%83%AF%E3%83%BC%E3%83%89']=getSelect('%E6%A4%9C%E7%B4%A2%E3%83%AF%E3%83%BC%E3%83%89')||getText('%E6%A4%9C%E7%B4%A2%E3%83%AF%E3%83%BC%E3%83%89');d['%E9%80%9A%E3%81%84%E3%82%84%E3%81%99%E3%81%84%E6%9B%9C%E6%97%A5']=getCheckboxes('%E9%80%9A%E3%81%84%E3%82%84%E3%81%99%E3%81%84%E6%9B%9C%E6%97%A5');d['%E9%80%9A%E3%81%84%E3%82%84%E3%81%99%E3%81%84%E6%99%82%E9%96%93%E5%B8%AF']=getCheckboxes('%E9%80%9A%E3%81%84%E3%82%84%E3%81%99%E3%81%84%E6%99%82%E9%96%93%E5%B8%AF');d['%E3%83%AC%E3%83%83%E3%82%B9%E3%83%B3%E3%81%B8%E3%81%AE%E8%A6%81%E6%9C%9B']=getCheckboxes('%E3%83%AC%E3%83%83%E3%82%B9%E3%83%B3%E3%81%AB%E5%AF%BE%E3%81%99%E3%82%8B%E8%A6%81%E6%9C%9B');d['%E5%AA%92%E4%BD%93CB']=getCheckboxes('%E5%AA%92%E4%BD%93');d['%E5%8B%95%E6%A9%9FCB']=getCheckboxes('%E5%8B%95%E6%A9%9F');var%20k=Object.keys(d);for(var%20i=0;i%3Ck.length;i++){if(!d[k[i]])delete%20d[k[i]];}delete%20d['phone'];var%20j=JSON.stringify(d);var%20u='https://itc.cybozu.com/k/82/edit?bc_data='+encodeURIComponent(j);window.open(u,'_blank');})();" title="このボタンをブックマークバーにドラッグ＆ドロップしてください">
+        <a class="bookmarklet-link" href="javascript:void(function(){var%20f=document.form1;if(!f){alert('%E4%BC%9A%E5%93%A1%E3%83%87%E3%83%BC%E3%82%BF%E7%B7%A8%E9%9B%86%E7%94%BB%E9%9D%A2%E3%81%A7%E5%AE%9F%E8%A1%8C%E3%81%97%E3%81%A6%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84');return;}var%20g=function(n){var%20e=f.elements[n];return%20e?(e.value||'').trim():'';};var%20gs=function(n){var%20e=f.elements[n];if(!e)return'';var%20o=e.options?e.options[e.selectedIndex]:null;return%20o%26%26o.value!==''?o.text.trim():'';};var%20gr=function(n){var%20e=f.elements[n];if(!e)return'';if(e.length){for(var%20i=0;i%3Ce.length;i++){if(e[i].checked)return%20e[i].value;}}return%20e.checked?e.value:'';};var%20tds=document.querySelectorAll('td');var%20clean=function(s){return(s||'').replace(/[\n\r\s\t\u3000]+/g,'').trim();};var%20findAllByLabel=function(label){var%20cl=clean(label);var%20results=[];for(var%20i=0;i%3Ctds.length;i++){var%20txt=clean(tds[i].textContent||tds[i].innerText||'');if(txt.indexOf(cl)!==-1%26%26txt.length%3C=cl.length+10){var%20next=tds[i].nextElementSibling;if(next%26%26next.tagName==='TD')results.push(next);}}return%20results;};var%20getSelect=function(label){var%20c=findAllByLabel(label);for(var%20i=0;i%3Cc.length;i++){var%20s=c[i].querySelector('select');if(s%26%26s.selectedIndex%3E0)return%20s.options[s.selectedIndex].text.trim();}return'';};var%20getRadio=function(label){var%20c=findAllByLabel(label);for(var%20i=0;i%3Cc.length;i++){var%20r=c[i].querySelector('input[type=%22radio%22]:checked');if(r)return%20r.value.trim();}return'';};var%20getCheckboxes=function(label){var%20c=findAllByLabel(label);for(var%20i=0;i%3Cc.length;i++){var%20cbs=c[i].querySelectorAll('input[type=%22checkbox%22]');if(cbs.length===0)continue;var%20checked=c[i].querySelectorAll('input[type=%22checkbox%22]:checked');var%20a=[];for(var%20j=0;j%3Cchecked.length;j++){if(checked[j].value)a.push(checked[j].value);}return%20a.length?a.join('\u3001'):'';}return'';};var%20getText=function(label){var%20c=findAllByLabel(label);for(var%20i=0;i%3Cc.length;i++){var%20inp=c[i].querySelector('input[type=%22text%22],textarea');if(inp%26%26inp.value.trim())return%20inp.value.trim();}return'';};var%20d={};d.code_no=g('code_no');d.pay_code_no=g('pay_code_no');d.family_name=g('family_name');d.first_name=g('first_name');d.family_kana=g('family_kana');d.first_kana=g('first_kana');d.email=g('email');d.zip=g('zip');d.sex=gr('sex');d.traffic_cd=gs('traffic_cd');d.motive_cd=gs('motive_cd');d.medium_cd=gs('medium_cd');d['\u6240\u8981\u6642\u9593']=getSelect('\u6240\u8981\u6642\u9593');d['\u30c6\u30cb\u30b9\u7d4c\u9a13']=getSelect('\u30c6\u30cb\u30b9\u7d4c\u9a13');d['\u30c1\u30e9\u30b7\u95b2\u89a7']=getRadio('\u30c1\u30e9\u30b7');d['HP\u95b2\u89a7']=getRadio('\u30db\u30fc\u30e0\u30da\u30fc\u30b8\u3092\u898b\u307e\u3057\u305f\u304b');d['\u691c\u7d22\u30ef\u30fc\u30c9']=getSelect('\u691c\u7d22\u30ef\u30fc\u30c9')||getText('\u691c\u7d22\u30ef\u30fc\u30c9');d['\u901a\u3044\u3084\u3059\u3044\u66dc\u65e5']=getCheckboxes('\u901a\u3044\u3084\u3059\u3044\u66dc\u65e5');d['\u901a\u3044\u3084\u3059\u3044\u6642\u9593\u5e2f']=getCheckboxes('\u901a\u3044\u3084\u3059\u3044\u6642\u9593\u5e2f');d['\u30ec\u30c3\u30b9\u30f3\u3078\u306e\u8981\u671b']=getCheckboxes('\u30ec\u30c3\u30b9\u30f3\u306b\u5bfe\u3059\u308b\u8981\u671b');d['\u5a92\u4f53CB']=getCheckboxes('\u5a92\u4f53');d['\u52d5\u6a5fCB']=getCheckboxes('\u52d5\u6a5f');var%20k=Object.keys(d);for(var%20i=0;i%3Ck.length;i++){if(!d[k[i]])delete%20d[k[i]];}delete%20d['phone'];var%20j=JSON.stringify(d);var%20u='https://itc.cybozu.com/k/82/edit%23bc_data='+encodeURIComponent(j);window.open(u,'_blank');}())" title="このボタンをブックマークバーにドラッグ＆ドロップしてください">
             📩 Kintoneに送る (v13.1)
+        </a>
+    </div>
+
+    <!-- 旧バージョン v12 -->
+    <div class="bookmarklet-box old-box">
+        <h3>旧バージョン v12（比較テスト用）</h3>
+        <p>以前のv12ブックマークレット。一部データが転記されない不具合あり。</p>
+        <a class="bookmarklet-link old-link" href="javascript:void(function(){var%20f=document.form1;if(!f){alert('%E4%BC%9A%E5%93%A1%E3%83%87%E3%83%BC%E3%82%BF%E7%B7%A8%E9%9B%86%E7%94%BB%E9%9D%A2%E3%81%A7%E5%AE%9F%E8%A1%8C%E3%81%97%E3%81%A6%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84');return;}var%20g=function(n){var%20e=f.elements[n];return%20e?(e.value||'').trim():'';};var%20gs=function(n){var%20e=f.elements[n];if(!e)return'';var%20o=e.options?e.options[e.selectedIndex]:null;return%20o%26%26o.value!==''?o.text.trim():'';};var%20gr=function(n){var%20e=f.elements[n];if(!e)return'';if(e.length){for(var%20i=0;i%3Ce.length;i++){if(e[i].checked)return%20e[i].value;}}return%20e.checked?e.value:'';};var%20tds=document.querySelectorAll('td');var%20clean=function(s){return(s||'').replace(/[\n\r\s\t\u3000]+/g,'').trim();};var%20findAllByLabel=function(label){var%20cl=clean(label);var%20results=[];for(var%20i=0;i%3Ctds.length;i++){var%20txt=clean(tds[i].textContent||tds[i].innerText||'');if(txt.indexOf(cl)!==-1%26%26txt.length%3C=cl.length+6){var%20next=tds[i].nextElementSibling;if(next%26%26next.tagName==='TD')results.push(next);}}return%20results;};var%20getSelect=function(label){var%20c=findAllByLabel(label);for(var%20i=0;i%3Cc.length;i++){var%20s=c[i].querySelector('select');if(s%26%26s.selectedIndex%3E0)return%20s.options[s.selectedIndex].text.trim();}return'';};var%20getRadio=function(label){var%20c=findAllByLabel(label);for(var%20i=0;i%3Cc.length;i++){var%20r=c[i].querySelector('input[type=%22radio%22]:checked');if(r)return%20r.value.trim();}return'';};var%20getCheckboxes=function(label){var%20c=findAllByLabel(label);for(var%20i=0;i%3Cc.length;i++){var%20cbs=c[i].querySelectorAll('input[type=%22checkbox%22]');if(cbs.length===0)continue;var%20checked=c[i].querySelectorAll('input[type=%22checkbox%22]:checked');var%20a=[];for(var%20j=0;j%3Cchecked.length;j++){if(checked[j].value)a.push(checked[j].value);}return%20a.length?a.join('\u3001'):'';}return'';};var%20d={};var%20cd='005'+g('code_no');d.cd=cd;d.fn=g('family_name');d.fi=g('first_name');d.fk=g('family_kana');d.fik=g('first_kana');d.em=g('email');d.zip=g('zip');d.sex=gr('sex')==='0'?'\u7537':'\u5973';d.trf=gs('traffic_cd');d.tm=getSelect('\u6240\u8981\u6642\u9593');d.fl=getRadio('\u30c1\u30e9\u30b7');d.hp=getRadio('\u30db\u30fc\u30e0\u30da\u30fc\u30b8');d.sw=getSelect('\u691c\u7d22\u30ef\u30fc\u30c9');d.wd=getCheckboxes('\u901a\u3044\u3084\u3059\u3044\u66dc\u65e5');d.wt=getCheckboxes('\u901a\u3044\u3084\u3059\u3044\u6642\u9593\u5e2f');d.req=getCheckboxes('\u30ec\u30c3\u30b9\u30f3\u306b\u5bfe\u3059\u308b\u8981\u671b');d.med=getCheckboxes('\u5a92\u4f53');d.mot=getCheckboxes('\u52d5\u6a5f');var%20p=new%20URLSearchParams();var%20k=Object.keys(d);for(var%20i=0;i%3Ck.length;i++){if(d[k[i]])p.set(k[i],d[k[i]]);}var%20u='https://itc.cybozu.com/k/82/edit%23bc='+encodeURIComponent(p.toString());window.open(u,'_blank');}())" title="このボタンをブックマークバーにドラッグ＆ドロップしてください">
+            📤 BCデータ→kintone送信 (v12)
         </a>
     </div>
 
@@ -118,48 +114,39 @@
     <div class="bookmarklet-box download-box">
         <h3>⚠️ 調査専用（HTMLダウンロード）⚠️</h3>
         <p>エラーが発生した場合に、原因調査のためBCセンターの画面HTMLをダウンロードします。<br>
-           ※Kintoneへの送信は行いません。<br>
-           ※ダウンロードされたHTMLファイルを開発者に送ってください。
+           ※Kintoneへの送信は行いません。
         </p>
-        <a class="bookmarklet-link download-link" href="javascript:(function(){var%20html=document.documentElement.outerHTML;var%20blob=new%20Blob([html],{type:'text/html'});var%20url=window.URL.createObjectURL(blob);var%20a=document.createElement('a');a.href=url;a.download='bc_center_page_source_'+new%20Date().getTime()+'.html';document.body.appendChild(a);a.click();window.URL.revokeObjectURL(url);document.body.removeChild(a);alert('HTML%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%82%92%E9%96%8B%E5%A7%8B%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F%E3%80%82%E3%81%93%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E9%96%8B%E7%99%BA%E8%80%85%E3%81%AB%E5%85%B1%E6%9C%89%E3%81%97%E3%81%A6%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84%E3%80%82');})();" title="このボタンをブックマークバーにドラッグ＆ドロップしてください">
+        <a class="bookmarklet-link download-link" href="javascript:void(function(){var%20html=document.documentElement.outerHTML;var%20blob=new%20Blob([html],{type:'text/html'});var%20url=window.URL.createObjectURL(blob);var%20a=document.createElement('a');a.href=url;a.download='bc_center_page_source_'+new%20Date().getTime()+'.html';document.body.appendChild(a);a.click();window.URL.revokeObjectURL(url);document.body.removeChild(a);alert('HTML\u30d5\u30a1\u30a4\u30eb\u306e\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9\u3092\u958b\u59cb\u3057\u307e\u3057\u305f\u3002\u3053\u306e\u30d5\u30a1\u30a4\u30eb\u3092\u958b\u767a\u8005\u306b\u5171\u6709\u3057\u3066\u304f\u3060\u3055\u3044\u3002');}())" title="このボタンをブックマークバーにドラッグ＆ドロップしてください">
             📥 画面HTMLをダウンロードする
         </a>
     </div>
 
     <div class="instructions">
-        <h3>使い方（エラー調査手順）</h3>
+        <h3>使い方</h3>
         <div class="instruction-step">
             <div class="step-number">1</div>
-            <div>
-                上の赤いボタン「<strong>📥 画面HTMLをダウンロードする</strong>」をブラウザのブックマークバーにドラッグ＆ドロップして登録します。
-            </div>
+            <div>上の青いボタン「<strong>📩 Kintoneに送る (v13.1)</strong>」をブラウザのブックマークバーにドラッグ＆ドロップして登録します。</div>
         </div>
         <div class="instruction-step">
             <div class="step-number">2</div>
-            <div>
-                エラーが発生したBCセンターの「会員データ編集画面」を開きます。（情報が入っていない状態でOKです）
-            </div>
+            <div>BCセンターの「会員データ編集画面」を開きます。</div>
         </div>
         <div class="instruction-step">
             <div class="step-number">3</div>
-            <div>
-                登録した「📥 画面HTMLをダウンロードする」ブックマークレットをクリックします。
-            </div>
+            <div>登録したブックマークレットをクリックします。</div>
         </div>
         <div class="instruction-step">
             <div class="step-number">4</div>
-            <div>
-                PCのダウンロードフォルダに <code>bc_center_page_source_...html</code> というファイルが保存されますので、そのファイルを教えてください。
-            </div>
+            <div>Kintoneの新規レコード作成画面が開き、データが自動入力されます。</div>
         </div>
     </div>
 
     <div class="changelog">
         <strong>更新履歴:</strong>
         <ul>
-            <li>v13.1 - 不具合調査用HTMLダウンロード機能追加。本番ボタンのエスケープ修正。(2026/03/12)</li>
-            <li>v13.0 - データ形式を安定版のJSON方式に全社統一。ラベルマッチングの精度を改善。(2026/03/12)</li>
-            <li>v12.0 - 各種フィールドの取得ロジック更新。動機CB等のチェックボックス化に対応。(2026/03/11)</li>
+            <li>v13.1 - ハッシュ方式(#bc_data=)に変更。HTMLダウンロード機能追加。v12ボタン同梱。(2026/03/12)</li>
+            <li>v13.0 - データ形式をJSON方式に統一。ラベルマッチングの精度を改善。(2026/03/12)</li>
+            <li>v12.0 - 各種フィールドの取得ロジック更新。(2026/03/11)</li>
         </ul>
     </div>
 </body>
