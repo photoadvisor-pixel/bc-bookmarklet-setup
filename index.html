@@ -54,7 +54,7 @@
 
     <script>
     // ============================
-    // v13.2 ブックマークレット（JSON + ハッシュ方式）
+    // v13.2 ブックマークレット（短縮キー + ハッシュ方式 / v42互換）
     // ============================
     var v13code = [
         "javascript:(function(){",
@@ -70,26 +70,27 @@
         "var getRadio=function(label){var c=findAllByLabel(label);for(var i=0;i<c.length;i++){var r=c[i].querySelector('input[type=\"radio\"]:checked');if(r)return r.value.trim();}return'';};",
         "var getCheckboxes=function(label){var c=findAllByLabel(label);for(var i=0;i<c.length;i++){var cbs=c[i].querySelectorAll('input[type=\"checkbox\"]');if(cbs.length===0)continue;var checked=c[i].querySelectorAll('input[type=\"checkbox\"]:checked');var a=[];for(var j=0;j<checked.length;j++){if(checked[j].value)a.push(checked[j].value);}return a.length?a.join('、'):'';}return'';};",
         "var getText=function(label){var c=findAllByLabel(label);for(var i=0;i<c.length;i++){var inp=c[i].querySelector('input[type=\"text\"],textarea');if(inp&&inp.value.trim())return inp.value.trim();}return'';};",
-        "var d={};",
-        "d.code_no=g('code_no');d.pay_code_no=g('pay_code_no');",
-        "d.family_name=g('family_name');d.first_name=g('first_name');",
-        "d.family_kana=g('family_kana');d.first_kana=g('first_kana');",
-        "d.email=g('email');d.zip=g('zip');d.sex=gr('sex');",
-        "d.traffic_cd=gs('traffic_cd');d.motive_cd=gs('motive_cd');d.medium_cd=gs('medium_cd');",
-        "d['所要時間']=getSelect('所要時間');",
-        "d['テニス経験']=getSelect('テニス経験');",
-        "d['チラシ閲覧']=getRadio('チラシ');",
-        "d['HP閲覧']=getRadio('ホームページを見ましたか');",
-        "d['検索ワード']=getSelect('検索ワード')||getText('検索ワード');",
-        "d['通いやすい曜日']=getCheckboxes('通いやすい曜日');",
-        "d['通いやすい時間帯']=getCheckboxes('通いやすい時間帯');",
-        "d['レッスンへの要望']=getCheckboxes('レッスンに対する要望');",
-        "d['媒体CB']=getCheckboxes('媒体');",
-        "d['動機CB']=getCheckboxes('動機');",
-        "var k=Object.keys(d);for(var i=0;i<k.length;i++){if(!d[k[i]])delete d[k[i]];}",
-        "delete d['phone'];",
-        "var j=JSON.stringify(d);",
-        "var u='https://wcb26.cybozu.com/k/218/edit'+'#bc_data='+encodeURIComponent(j);",
+        "var p=new URLSearchParams();",
+        "var cd='005'+g('code_no');if(cd!=='005')p.set('cd',cd);",
+        "var fn=g('family_name');if(fn)p.set('fn',fn);",
+        "var fi=g('first_name');if(fi)p.set('fi',fi);",
+        "var fk=g('family_kana');if(fk)p.set('fk',fk);",
+        "var fik=g('first_kana');if(fik)p.set('fik',fik);",
+        "var em=g('email');if(em)p.set('em',em);",
+        "var zip=g('zip');if(zip)p.set('zip',zip);",
+        "var sex=gr('sex');if(sex==='0')p.set('sex','男');else if(sex==='1')p.set('sex','女');",
+        "var trf=gs('traffic_cd');if(trf)p.set('trf',trf);",
+        "var tm=getSelect('所要時間');if(tm)p.set('tm',tm);",
+        "var exp=getSelect('テニス経験');if(exp)p.set('exp',exp);",
+        "var fl=getRadio('チラシ');if(fl)p.set('fl',fl);",
+        "var hp=getRadio('ホームページを見ましたか');if(hp)p.set('hp',hp);",
+        "var sw=getSelect('検索ワード')||getText('検索ワード');if(sw)p.set('sw',sw);",
+        "var wd=getCheckboxes('通いやすい曜日');if(wd)p.set('wd',wd);",
+        "var wt=getCheckboxes('通いやすい時間帯');if(wt)p.set('wt',wt);",
+        "var req=getCheckboxes('レッスンに対する要望');if(req)p.set('req',req);",
+        "var med=getCheckboxes('媒体');if(med)p.set('med',med);",
+        "var mot=getCheckboxes('動機');if(mot)p.set('mot',mot);",
+        "var u='https://wcb26.cybozu.com/k/218/edit'+'#bc='+encodeURIComponent(p.toString());",
         "window.open(u,'_blank');",
         "})()"
     ].join("");
