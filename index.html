@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ITC Kintone ブックマークレット設定 v13.2</title>
+    <title>ITC Kintone ブックマークレット設定 v13.3</title>
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
         h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
@@ -23,10 +23,10 @@
     </style>
 </head>
 <body>
-    <h1>ITC Kintone連携設定 (v13.2)</h1>
+    <h1>ITC Kintone連携設定 (v13.3)</h1>
     <p>以下のボタンをブックマークバーにドラッグ＆ドロップして登録してください。</p>
 
-    <!-- 本番用 v13.2 -->
+    <!-- 本番用 v13.3 -->
     <div class="box" id="v13box"></div>
 
 
@@ -44,6 +44,7 @@
     <div class="log">
         <strong>更新履歴:</strong>
         <ul>
+            <li>v13.3 - 施設コード取得修正（stab_no→DOMテキスト抽出）。DPC媒体対応（select/checkbox両対応、DPC固有ラベル追加）。(2026/03/13)</li>
             <li>v13.2 - URL構築方法を修正。ブックマーク登録時のエンコード問題を解消。(2026/03/12)</li>
             <li>v13.1 - ハッシュ方式に変更。HTMLダウンロード機能追加。(2026/03/12)</li>
             <li>v12.0 - 各種フィールドの取得ロジック更新。(2026/03/11)</li>
@@ -52,7 +53,11 @@
 
     <script>
     // ============================
-    // v13.2 ブックマークレット（短縮キー + ハッシュ方式 / v42互換）
+    // v13.3 ブックマークレット（短縮キー + ハッシュ方式 / v43互換）
+    // 修正点:
+    //   1. stab_no → code_no入力欄の直前テキストから施設プレフィックスを取得
+    //   2. 媒体/動機: getCheckboxes → getSelect フォールバック対応
+    //   3. DPC固有ラベル対応（きっかけ、ご覧になった広告物、期待すること）
     // ============================
     var v13code = [
         "javascript:(function(){",
@@ -68,8 +73,18 @@
         "var getRadio=function(label){var c=findAllByLabel(label);for(var i=0;i<c.length;i++){var r=c[i].querySelector('input[type=\"radio\"]:checked');if(r)return r.value.trim();}return'';};",
         "var getCheckboxes=function(label){var c=findAllByLabel(label);for(var i=0;i<c.length;i++){var cbs=c[i].querySelectorAll('input[type=\"checkbox\"]');if(cbs.length===0)continue;var checked=c[i].querySelectorAll('input[type=\"checkbox\"]:checked');var a=[];for(var j=0;j<checked.length;j++){if(checked[j].value)a.push(checked[j].value);}return a.length?a.join('、'):'';}return'';};",
         "var getText=function(label){var c=findAllByLabel(label);for(var i=0;i<c.length;i++){var inp=c[i].querySelector('input[type=\"text\"],textarea');if(inp&&inp.value.trim())return inp.value.trim();}return'';};",
+
+        // v13.3: 施設プレフィックス取得（code_no入力欄の直前テキストから3桁を取得）
+        "var getPrefix=function(){var el=f.elements['code_no'];if(!el)return'';var prev=el.previousSibling;while(prev){if(prev.nodeType===3){var t=prev.textContent.trim();var m=t.match(/(\\d{3})$/);if(m)return m[1];}prev=prev.previousSibling;}var td=el.closest('td');if(td){var t=td.textContent;var m=t.match(/(\\d{3})/);if(m)return m[1];}return'';};",
+
+        // v13.3: checkbox OR select 取得（DPC対応）
+        "var getCheckboxesOrSelect=function(){var labels=Array.prototype.slice.call(arguments);for(var i=0;i<labels.length;i++){var v=getCheckboxes(labels[i]);if(v)return v;}for(var i=0;i<labels.length;i++){var v=getSelect(labels[i]);if(v)return v;}return'';};",
+
         "var p=new URLSearchParams();",
-        "var cd=g('stab_no')+g('code_no');if(cd)p.set('cd',cd);",
+
+        // v13.3: 施設プレフィックス + code_no でBC会員番号を構築
+        "var pfx=getPrefix();var cn=g('code_no');var cd=pfx+cn;if(cd)p.set('cd',cd);",
+
         "var fn=g('family_name');if(fn)p.set('fn',fn);",
         "var fi=g('first_name');if(fi)p.set('fi',fi);",
         "var fk=g('family_kana');if(fk)p.set('fk',fk);",
@@ -79,15 +94,20 @@
         "var sex=gr('sex');if(sex==='0')p.set('sex','男');else if(sex==='1')p.set('sex','女');",
         "var trf=gs('traffic_cd');if(trf)p.set('trf',trf);",
         "var tm=getSelect('所要時間');if(tm)p.set('tm',tm);",
-        "var exp=getSelect('テニス経験');if(exp)p.set('exp',exp);",
+        "var exp=getSelect('テニス経験')||getSelect('ピックルボール経験');if(exp)p.set('exp',exp);",
         "var fl=getRadio('チラシ');if(fl)p.set('fl',fl);",
         "var hp=getRadio('ホームページを見ましたか');if(hp)p.set('hp',hp);",
         "var sw=getSelect('検索ワード')||getText('検索ワード');if(sw)p.set('sw',sw);",
         "var wd=getCheckboxes('通いやすい曜日');if(wd)p.set('wd',wd);",
         "var wt=getCheckboxes('通いやすい時間帯');if(wt)p.set('wt',wt);",
         "var req=getCheckboxes('レッスンに対する要望')||getCheckboxes('レッスンへの要望')||getCheckboxes('要望');if(req)p.set('req',req);",
-        "var med=getCheckboxes('媒体');if(med)p.set('med',med);",
-        "var mot=getCheckboxes('動機');if(mot)p.set('mot',mot);",
+
+        // v13.3: 媒体 - checkbox優先、なければselect（DPC対応）+ DPC固有ラベル
+        "var med=getCheckboxesOrSelect('媒体','媒体（ご覧になった広告物）','ご覧になった広告物');if(med)p.set('med',med);",
+
+        // v13.3: 動機 - checkbox優先、なければselect（DPC対応）+ DPC固有ラベル
+        "var mot=getCheckboxesOrSelect('動機','動機（テニス）','きっかけ','期待すること');if(mot)p.set('mot',mot);",
+
         "var u='https://wcb26.cybozu.com/k/218/edit'+'#bc='+encodeURIComponent(p.toString());",
         "window.open(u,'_blank');",
         "})()"
@@ -127,8 +147,8 @@
     }
 
     var v13box = document.getElementById('v13box');
-    v13box.innerHTML = '<h3>本番用 v13.2（Kintoneへ転送）</h3><p>BCセンターの会員データ画面でクリックすると、Kintoneにデータを送ります。</p>';
-    v13box.appendChild(makeLink(v13code, '📩 Kintoneに送る (v13.2)', 'btn-blue'));
+    v13box.innerHTML = '<h3>本番用 v13.3（Kintoneへ転送）</h3><p>BCセンターの会員データ画面でクリックすると、Kintoneにデータを送ります。</p>';
+    v13box.appendChild(makeLink(v13code, '📩 Kintoneに送る (v13.3)', 'btn-blue'));
 
 
 
