@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ITC Kintone ブックマークレット設定 v13.3</title>
+    <title>ITC Kintone ブックマークレット設定 v13.4</title>
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
         h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
@@ -23,10 +23,10 @@
     </style>
 </head>
 <body>
-    <h1>ITC Kintone連携設定 (v13.3)</h1>
+    <h1>ITC Kintone連携設定 (v13.4)</h1>
     <p>以下のボタンをブックマークバーにドラッグ＆ドロップして登録してください。</p>
 
-    <!-- 本番用 v13.3 -->
+    <!-- 本番用 v13.4 -->
     <div class="box" id="v13box"></div>
 
 
@@ -44,6 +44,7 @@
     <div class="log">
         <strong>更新履歴:</strong>
         <ul>
+            <li>v13.4 - DPC神戸マッピング修正: きっかけ+ご覧になった広告物→きっかけ・媒体(med)、期待すること→通う目的(mot)。(2026/03/13)</li>
             <li>v13.3 - 施設コード取得修正（stab_no→DOMテキスト抽出）。DPC媒体対応（select/checkbox両対応、DPC固有ラベル追加）。(2026/03/13)</li>
             <li>v13.2 - URL構築方法を修正。ブックマーク登録時のエンコード問題を解消。(2026/03/12)</li>
             <li>v13.1 - ハッシュ方式に変更。HTMLダウンロード機能追加。(2026/03/12)</li>
@@ -53,12 +54,12 @@
 
     <script>
     // ============================
-    // v13.3 ブックマークレット（短縮キー + ハッシュ方式 / v43互換）
+    // v13.4 ブックマークレット（短縮キー + ハッシュ方式 / v43互換）
     // 修正点:
-    //   1. stab_no → code_no入力欄の直前テキストから施設プレフィックスを取得
-    //   2. 媒体/動機: getCheckboxes → getSelect フォールバック対応
-    //   3. DPC固有ラベル対応（きっかけ、ご覧になった広告物、期待すること）
+    //   v13.4: きっかけ+ご覧になった広告物 → med(きっかけ・媒体), 期待すること → mot(通う目的)
+    //   v13.3: stab_no → DOMテキスト抽出, DPC固有ラベル対応
     // ============================
+    var v13code_v = 'v13.4';
     var v13code = [
         "javascript:(function(){",
         "var f=document.form1;",
@@ -102,11 +103,13 @@
         "var wt=getCheckboxes('通いやすい時間帯');if(wt)p.set('wt',wt);",
         "var req=getCheckboxes('レッスンに対する要望')||getCheckboxes('レッスンへの要望')||getCheckboxes('要望');if(req)p.set('req',req);",
 
-        // v13.3: 媒体 - checkbox優先、なければselect（DPC対応）+ DPC固有ラベル
-        "var med=getCheckboxesOrSelect('媒体','媒体（ご覧になった広告物）','ご覧になった広告物');if(med)p.set('med',med);",
+        // v13.4: きっかけ・媒体(med) = きっかけ+ご覧になった広告物マージ → fallback標準媒体
+        "var m1=getCheckboxes('ご覧になった広告物');var m2=getCheckboxes('きっかけ');",
+        "var mp=[];if(m1)mp.push(m1);if(m2)mp.push(m2);var med=mp.length>0?mp.join('、'):'';",
+        "if(!med)med=getCheckboxesOrSelect('媒体','媒体（ご覧になった広告物）');if(med)p.set('med',med);",
 
-        // v13.3: 動機 - checkbox優先、なければselect（DPC対応）+ DPC固有ラベル
-        "var mot=getCheckboxesOrSelect('動機','動機（テニス）','きっかけ','期待すること');if(mot)p.set('mot',mot);",
+        // v13.4: 通う目的(mot) = 動機/動機（テニス）/期待すること（きっかけは除外→medへ）
+        "var mot=getCheckboxesOrSelect('動機','動機（テニス）','期待すること');if(mot)p.set('mot',mot);",
 
         "var u='https://wcb26.cybozu.com/k/218/edit'+'#bc='+encodeURIComponent(p.toString());",
         "window.open(u,'_blank');",
@@ -147,8 +150,8 @@
     }
 
     var v13box = document.getElementById('v13box');
-    v13box.innerHTML = '<h3>本番用 v13.3（Kintoneへ転送）</h3><p>BCセンターの会員データ画面でクリックすると、Kintoneにデータを送ります。</p>';
-    v13box.appendChild(makeLink(v13code, '📩 Kintoneに送る (v13.3)', 'btn-blue'));
+    v13box.innerHTML = '<h3>本番用 ' + v13code_v + '（Kintoneへ転送）</h3><p>BCセンターの会員データ画面でクリックすると、Kintoneにデータを送ります。</p>';
+    v13box.appendChild(makeLink(v13code, '📩 Kintoneに送る (' + v13code_v + ')', 'btn-blue'));
 
 
 
